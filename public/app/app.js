@@ -34,7 +34,7 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'PhotosCtrl'
         })
         .when('/photos/:id', {
-            templateUrl: '/partials/photos/photos-details',
+            templateUrl: '/partials/photos/photo-details',
             controller: 'PhotosDetailsCtrl'
         })
         .when('/signup', {

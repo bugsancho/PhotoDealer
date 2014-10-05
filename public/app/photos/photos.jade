@@ -4,4 +4,5 @@
         .row
             .col-md-4(ng-repeat="photo in photos")
 
-                img(src="{{photo.pictureUrl}}", width="300px", height="300px")
+                img(src="{{photo.pictureUrl}}", width="300px", height="300px",ng-click="redirectToDetails(photo._id)")
+                p

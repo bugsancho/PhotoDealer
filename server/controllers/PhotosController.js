@@ -8,7 +8,7 @@ module.exports = {
 
         Photo.find({})
             .skip(queries.page * DEFAULT_PAGE_SIZE)
-            .limit(DEFAULT_PAGE_SIZE)
+            .limit(queries.limit || DEFAULT_PAGE_SIZE)
             .sort(queries.sort)
             .exec(function (err, collection) {
                 if (err) {

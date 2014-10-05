@@ -4,7 +4,11 @@ app.factory('PhotosResource', function ($resource) {
 
     return {
         PhotosResource: PhotosResource,
-        getLatestPhotos: $resource(photosUrl + '/latest').query,
-        getPopularPhotos: $resource(photosUrl + '/popular').query
+        getLatestPhotos: function () {
+          return PhotosResource.query({sort:'-published',limit:4});
+        },
+        getPopularPhotos: function () {
+            return PhotosResource.query({sort:'-downloadsCount',limit:4});
+        }
     };
 });

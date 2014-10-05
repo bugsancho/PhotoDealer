@@ -1,3 +1,26 @@
 .container
-    img(src="{{ photo.pictureUrl }}")
-
+    br
+    .row
+        .col-md-7
+            img(src="{{ photo.pictureUrl }}" width="100%" alt="{{ photo.title }}")
+        .col-md-5.bs-component
+            .panel.panel-default
+                .panel-heading
+                    h2.text-center
+                        | {{ photo.title }}
+                .panel-body
+                    ul.list-group
+                        li.list-group-item
+                            | Author: {{ photo.author }}
+                        li.list-group-item
+                            | Published on: {{ photo.published | date:'dd - MMM - yyyy' }}
+                        li.list-group-item
+                            | Category: {{ photo.category }}
+                        li.list-group-item
+                            | Tags: {{ photo.tags.join(', ') }}
+                        li.list-group-item
+                            | Downloads: {{ photo.downloadsCount || 0 }}
+                        li.list-group-item
+                            | Price: {{ photo.price || 0 | currency:'$' }}
+                    button.btn.btn-primary
+                        | Buy now!

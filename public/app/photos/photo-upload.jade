@@ -19,6 +19,10 @@
                     label.col-md-2.control-label(for="price") Price
                     .col-md-10
                         input.form-control(type="number", placeholder="Price", name="price")
+                .form-group(ng-hide="true")
+                    label.col-md-2.control-label(for="author") Price
+                    .col-md-10
+                        input.form-control(type="text", value="{{identity.currentUser._id}}", name="author")
                 .pull-right
                     input.btn.btn-primary(type="submit", value="Send" ng-click="upload()")
                     a.btn.btn-primary(href="#/") Cancel

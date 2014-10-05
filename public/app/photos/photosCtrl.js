@@ -1,7 +1,9 @@
-app.controller('PhotosCtrl', function ($scope, PhotosResource, $location) {
+app.controller('PhotosCtrl', function ($scope, PhotosResource, $location, identity) {
     $scope.photos = PhotosResource.PhotosResource.query();
     $scope.redirectToDetails = redirectToDetails;
     $scope.page = 1;
+    $scope.identity = identity;
+
     function redirectToDetails(id) {
         $location.path('photos/' + id);
     }
@@ -21,4 +23,6 @@ app.controller('PhotosCtrl', function ($scope, PhotosResource, $location) {
         getPhotos({page: $scope.page - 1});
 
     };
+
+
 });

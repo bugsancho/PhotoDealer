@@ -11,6 +11,7 @@ module.exports = function(config) {
     db.once('open', function(err) {
         if (err) {
             console.log('Database could not be opened: ' + err);
+            console.log(err)
             return;
         }
 
@@ -18,6 +19,7 @@ module.exports = function(config) {
     });
 
     db.on('error', function(err){
+        console.dir(err);
         console.log('Database error: ' + err);
     });
 

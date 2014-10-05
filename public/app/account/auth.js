@@ -51,7 +51,7 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             $http.post('/logout').success(function() {
                 identity.currentUser = undefined;
                 deferred.resolve();
-            })
+            });
 
             return deferred.promise;
         },

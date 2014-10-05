@@ -1,1 +1,6 @@
-
+.row
+    div(ng-repeat="photo in popularPhotos")
+        .col-md-6.text-center
+            | Downloads: {{ photo.downloadsCount }}
+            a(href="#/photos/{{ photo._id }}")
+                img(src="{{ photo.pictureUrl }}" width="100%" height="200px")

@@ -7,6 +7,8 @@ module.exports = function(app) {
     app.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
 
     app.get('/api/photos', controllers.photos.getAllPhotos);
+    app.get('/api/photos/latest', controllers.photos.getLatestPhotos);
+    app.get('/api/photos/popular', controllers.photos.getPopularPhotos);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
 
     app.get('/partials/:partialArea/:partialName', function(req, res) {

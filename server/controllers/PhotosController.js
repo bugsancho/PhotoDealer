@@ -41,5 +41,19 @@ module.exports = {
 
                 res.send(collection);
             })
+    },
+    getPopularPhotos: function (req, res, next) {
+        var queries = req.query;
+
+        Photo.find({})
+            .limit(DEFAULT_NEW_PHOTOS_PAGE_SIZE)
+            .sort('-downloadsCount')
+            .exec(function (err, collection) {
+                if (err) {
+                    console.log('Photos could not be loaded: ' + err);
+                }
+
+                res.send(collection);
+            })
     }
 };

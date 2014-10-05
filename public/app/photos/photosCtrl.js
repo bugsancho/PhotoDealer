@@ -1,5 +1,5 @@
 app.controller('PhotosCtrl', function ($scope, PhotosResource, $location) {
-    $scope.photos = PhotosResource.query();
+    $scope.photos = PhotosResource.PhotosResource.query();
     $scope.redirectToDetails = redirectToDetails;
     $scope.page = 1;
     function redirectToDetails(id) {
@@ -7,7 +7,7 @@ app.controller('PhotosCtrl', function ($scope, PhotosResource, $location) {
     }
 
     function getPhotos(params) {
-        PhotosResource.query(params).$promise.then(function (data) {
+        PhotosResource.PhotosResource.query(params).$promise.then(function (data) {
             $scope.photos = data;
         })
     }

@@ -1,5 +1,5 @@
 app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, PhotosResource, notifier) {
-    $scope.photo = PhotosResource.get({id: $routeParams.id});
+    $scope.photo = PhotosResource.PhotosResource.get({id: $routeParams.id});
 
     $scope.isBought = function () {
         // TODO: Check if current user has already bought the current picture.

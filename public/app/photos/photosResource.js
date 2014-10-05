@@ -1,6 +1,10 @@
 app.factory('PhotosResource', function ($resource) {
-    var PhotosResource = $resource('/api/photos/:id', {id: '@id'},
-        { update: {method: 'PUT', isArray: false}});
+    var photosUrl = '/api/photos';
+    var PhotosResource = $resource(photosUrl + '/:id', {id: '@id'});
 
-    return PhotosResource;
+    return {
+        PhotosResource: PhotosResource,
+        getLatestPhotos: $resource(photosUrl + '/latest').query,
+        getPopularPhotos: $resource(photosUrl + '/popular').query
+    };
 });

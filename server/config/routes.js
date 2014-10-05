@@ -6,9 +6,6 @@ module.exports = function(app) {
     app.post('/api/users', controllers.users.createUser);
     app.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
 
-    app.get('/api/courses', controllers.courses.getAllCourses);
-    app.get('/api/courses/:id', controllers.courses.getCourseById);
-
     app.get('/api/photos', controllers.photos.getAllPhotos);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
 

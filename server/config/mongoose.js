@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
     user = require('../models/User'),
-    course = require('../models/Course'),
     photo = require('../models/Photo');
 
 
@@ -11,7 +10,6 @@ module.exports = function(config) {
     db.once('open', function(err) {
         if (err) {
             console.log('Database could not be opened: ' + err);
-            console.log(err)
             return;
         }
 
@@ -24,6 +22,5 @@ module.exports = function(config) {
     });
 
     user.seedInitialUsers();
-    course.seedInitialCourses();
     photo.seedInitialPhotos();
 };

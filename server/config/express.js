@@ -10,8 +10,14 @@ module.exports = function (app, config) {
     app.set('view engine', 'jade');
     app.set('views', config.rootPath + '/server/views');
     app.use(cookieParser());
-    app.use(bodyParser());
-    app.use(session({secret: 'magic unicorns'}));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(session({
+        secret: 'magic unicorns',
+        resave: true,
+        saveUninitialized: true
+    }));
+
     app.use(stylus.middleware(
         {
             src: config.rootPath + '/public',

@@ -3,6 +3,7 @@ var DEFAULT_PAGE_SIZE = 6;
 module.exports = {
     getAllPhotos: function (req, res, next) {
         var queries = req.query;
+
         Photo.find({})
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(DEFAULT_PAGE_SIZE)

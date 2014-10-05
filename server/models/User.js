@@ -1,17 +1,25 @@
 var mongoose = require('mongoose'),
+    photo = require('./Photo'),
     encryption = require('../utilities/encryption');
 
 var userSchema = mongoose.Schema({
     username: { type: String, require: '{PATH} is required', unique: true },
     firstName: { type: String, require: '{PATH} is required' },
     lastName: { type: String, require: '{PATH} is required' },
+    boughtPhotosIds: [
+        {type: mongoose.Schema.ObjectId, ref: 'Photo'}
+    ],
+    ownPhotosIds: [
+        {type: mongoose.Schema.ObjectId, ref: 'Photo'}
+    ],
+    credits: Number,
     salt: String,
     hashPass: String,
     roles: [String]
 });
 
 userSchema.method({
-    authenticate: function(password) {
+    authenticate: function (password) {
         if (encryption.generateHashedPassword(this.salt, password) === this.hashPass) {
             return true;
         }
@@ -24,8 +32,8 @@ userSchema.method({
 
 var User = mongoose.model('User', userSchema);
 
-module.exports.seedInitialUsers = function() {
-    User.find({}).exec(function(err, collection) {
+module.exports.seedInitialUsers = function () {
+    User.find({}).exec(function (err, collection) {
         if (err) {
             console.log('Cannot find users: ' + err);
             return;
@@ -38,6 +46,9 @@ module.exports.seedInitialUsers = function() {
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'Ivaylo');
             User.create({username: 'ivaylo.kenov', firstName: 'Ivaylo', lastName: 'Kenov', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'admin');
+            User.create({username: 'admin', firstName: 'admin', lastName: 'admin', salt: salt, hashPass: hashedPwd, roles: ['admin']});
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'Nikolay');
             User.create({username: 'Nikolay.IT', firstName: 'Nikolay', lastName: 'Kostov', salt: salt, hashPass: hashedPwd, roles: ['standard']});

@@ -4,6 +4,6 @@ app.controller('PhotosCtrl', function($scope,PhotosResource,$location) {
     $scope.redirectToDetails = redirectToDetails;
 
     function redirectToDetails(id) {
-        $location.path('#/pictures/' + id);
+        $location.path('photos/' + id);
     }
 });

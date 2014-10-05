@@ -5,7 +5,7 @@ var express = require('express'),
     session = require('express-session'),
     passport = require('passport');
 
-module.exports = function(app, config) {
+module.exports = function (app, config) {
     app.set('view engine', 'jade');
     app.set('views', config.rootPath + '/server/views');
     app.use(cookieParser());
@@ -14,7 +14,7 @@ module.exports = function(app, config) {
     app.use(stylus.middleware(
         {
             src: config.rootPath + '/public',
-            compile: function(str, path) {
+            compile: function (str, path) {
                 return stylus(str).set('filename', path);
             }
         }

@@ -9,7 +9,6 @@ app.controller('PhotosCtrl', function ($scope, PhotosResource, $location) {
     function getPhotos(params) {
         PhotosResource.query(params).$promise.then(function (data) {
             $scope.photos = data;
-            console.log(data);
         })
     }
 

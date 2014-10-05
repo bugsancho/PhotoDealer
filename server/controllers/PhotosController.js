@@ -1,5 +1,5 @@
 var Photo = require('mongoose').model('Photo');
-var DEFAULT_PAGE_SIZE = 3;
+var DEFAULT_PAGE_SIZE = 6;
 module.exports = {
     getAllPhotos: function (req, res, next) {
         var queries = req.query;

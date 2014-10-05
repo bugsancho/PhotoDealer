@@ -3,7 +3,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    passport = require('passport');
+    passport = require('passport'),
+    busboy = require('connect-busboy');
 
 module.exports = function (app, config) {
     app.set('view engine', 'jade');
@@ -21,5 +22,7 @@ module.exports = function (app, config) {
     ));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(busboy({ immediate: true }));
+
     app.use(express.static(config.rootPath + '/public'));
 };

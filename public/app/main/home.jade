@@ -1,13 +1,15 @@
 .container
-    .jumbotron
-        h1 Telerik Academy Courses
-        h2 Best trainings in the world
+    .well
+        h1.text-center
+            | Photo Dealer
     .row
         .col-md-6
-            .panel.panel-info
-                .panel-heading.text-center Featured
+            .panel.panel-default
+                .panel-heading.text-center
+                    | Most popular photos
                 .panel-body(ng-include="'/partials/main/featured-courses'")
         .col-md-6
-            .panel.panel-info
-                .panel-heading.text-center New
+            .panel.panel-default
+                .panel-heading.text-center
+                    | Newset photos
                 .panel-body(ng-include="'/partials/main/new-courses'")

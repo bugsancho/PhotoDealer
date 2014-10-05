@@ -1,0 +1,8 @@
+div(ng-repeat="photo in newPhotos | orderBy: '-published' | limitTo: 10")
+    .row
+        .col-md-3
+            | {{ photo.published | date: 'd MMMM yyyy' }}
+        .col-md-9
+            a(href="#/courses/{{ photo._id }}") {{ photo.title }}
+
+

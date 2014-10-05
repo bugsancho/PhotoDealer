@@ -1,5 +1,7 @@
 var Photo = require('mongoose').model('Photo');
 var DEFAULT_PAGE_SIZE = 6;
+var DEFAULT_NEW_PHOTOS_PAGE_SIZE = 4;
+
 module.exports = {
     getAllPhotos: function (req, res, next) {
         var queries = req.query;
@@ -24,6 +26,20 @@ module.exports = {
                 }
 
                 res.send(course);
+            })
+    },
+    getLatestPhotos: function (req, res, next) {
+        var queries = req.query;
+
+        Photo.find({})
+            .limit(DEFAULT_NEW_PHOTOS_PAGE_SIZE)
+            .sort('published')
+            .exec(function (err, collection) {
+                if (err) {
+                    console.log('Photos could not be loaded: ' + err);
+                }
+
+                res.send(collection);
             })
     }
 };

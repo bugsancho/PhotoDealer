@@ -1,4 +1,4 @@
-Telerik-Academy-Courses
+Photo Dealer
 =======================
 
 MEAN Stack Application

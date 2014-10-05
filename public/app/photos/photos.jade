@@ -11,6 +11,6 @@
         .row
             .col-md-4(ng-repeat="photo in photos")
 
-                img.mrg-btm(src="{{photo.pictureUrl}}", width="300px", height="300px",ng-click="redirectToDetails(photo._id)")
+                img.mrg-btm(ng-src="{{photo.pictureUrl}}", width="300px", height="300px",ng-click="redirectToDetails(photo._id)")
 
         h2.text-center(ng-show="photos.length ==0") No More Photos

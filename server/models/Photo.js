@@ -8,7 +8,7 @@ var photoSchema = mongoose.Schema({
     category: String,
     price: Number,
     downloadsCount: Number,
-    imageData: {data: Buffer},
+    imageData: {data: Buffer, contentType: String, fileName: String},
     pictureUrl: String,
     tags: [String]
 });

@@ -10,6 +10,8 @@ module.exports = function(app) {
     app.get('/api/photos/latest', controllers.photos.getLatestPhotos);
     app.get('/api/photos/popular', controllers.photos.getPopularPhotos);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
+    app.get('/api/photos/:id/file', controllers.photos.getPhotoFile);
+    app.post('/api/photos', controllers.photos.uploadPhoto);
 
     app.get('/partials/:partialArea/:partialName', function(req, res) {
         res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)

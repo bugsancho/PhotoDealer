@@ -3,4 +3,4 @@
         .col-md-6.text-center
             | {{ photo.published | date: 'dd/MM/yyyy HH:mm' }}
             a(href="#/photos/{{ photo._id }}")
-                img(src="{{ photo.pictureUrl }}" width="100%" height="200px")
+                img(ng-src="{{ photo.pictureUrl }}" width="100%" height="200px")

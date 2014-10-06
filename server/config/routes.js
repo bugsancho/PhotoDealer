@@ -7,8 +7,6 @@ module.exports = function(app) {
     app.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
 
     app.get('/api/photos', controllers.photos.getAllPhotos);
-    app.get('/api/photos/latest', controllers.photos.getLatestPhotos);
-    app.get('/api/photos/popular', controllers.photos.getPopularPhotos);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
     app.get('/api/photos/:id/file', controllers.photos.getPhotoFile);
     app.post('/api/photos', controllers.photos.uploadPhoto);

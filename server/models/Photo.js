@@ -17,6 +17,10 @@ var Photo = mongoose.model('Photo', photoSchema);
 
 module.exports = {
     seedInitialPhotos: function () {
+
+     //  Photo.remove({}, function (err) {
+     //      console.log('Photos removed')
+     //  })
         Photo.find({}).exec(function (err, collection) {
             if (err) {
                 console.log('Cannot find photos: ' + err);

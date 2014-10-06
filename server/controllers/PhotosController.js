@@ -10,50 +10,23 @@ module.exports = {
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(queries.limit || DEFAULT_PAGE_SIZE)
             .sort(queries.sort)
+            .select('published title downloadsCount pictureUrl')
             .exec(function (err, collection) {
                 if (err) {
                     console.log('Photos could not be loaded: ' + err);
-                }
 
+                }
                 res.send(collection);
             })
     },
     getPhotoById: function (req, res, next) {
         Photo.findOne({_id: req.params.id})
+            .select('-imageData')
             .exec(function (err, photo) {
                 if (err) {
                     console.log('Photo could not be loaded: ' + err);
                 }
-                photo.imageData.data = undefined;
                 res.send(photo);
-            })
-    },
-    getLatestPhotos: function (req, res, next) {
-        var queries = req.query;
-
-        Photo.find({})
-            .limit(DEFAULT_NEW_PHOTOS_PAGE_SIZE)
-            .sort('published')
-            .exec(function (err, collection) {
-                if (err) {
-                    console.log('Photos could not be loaded: ' + err);
-                }
-
-                res.send(collection);
-            })
-    },
-    getPopularPhotos: function (req, res, next) {
-        var queries = req.query;
-
-        Photo.find({})
-            .limit(DEFAULT_NEW_PHOTOS_PAGE_SIZE)
-            .sort('-downloadsCount')
-            .exec(function (err, collection) {
-                if (err) {
-                    console.log('Photos could not be loaded: ' + err);
-                }
-
-                res.send(collection);
             })
     },
     getPhotoFile: function (req, res, next) {
@@ -66,7 +39,7 @@ module.exports = {
                 res.send(photo.imageData.data);
             })
     },
-    uploadPhoto: function(req, res, next) {
+    uploadPhoto: function (req, res, next) {
         var newPhoto = new Photo;
 
         req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
@@ -110,7 +83,7 @@ module.exports = {
                     console.log(err);
                 }
 
-               // console.log(newPhoto._id);
+                // console.log(newPhoto._id);
                 res.redirect('/');
             });
         });

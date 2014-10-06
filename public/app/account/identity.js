@@ -1,9 +1,8 @@
 app.factory('identity', function($window, UsersResource) {
     var user;
-    if ($window.bootstrappedUserObject) {
+    if (sessionStorage.user) {
         user = new UsersResource();
-
-        angular.extend(user, $window.bootstrappedUserObject);
+        angular.extend(user, JSON.parse(sessionStorage.user));
     }
     return {
         currentUser: user,

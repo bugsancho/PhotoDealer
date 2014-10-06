@@ -36,6 +36,7 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
                     var user = new UsersResource();
                     angular.extend(user, response.user);
                     identity.currentUser = user;
+                    sessionStorage['user'] = JSON.stringify(user);
                     deferred.resolve(true);
                 }
                 else {
@@ -50,6 +51,7 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
 
             $http.post('/logout').success(function() {
                 identity.currentUser = undefined;
+                sessionStorage.removeItem('user');
                 deferred.resolve();
             });
 

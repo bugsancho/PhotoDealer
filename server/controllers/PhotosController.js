@@ -20,12 +20,12 @@ module.exports = {
     },
     getPhotoById: function (req, res, next) {
         Photo.findOne({_id: req.params.id})
-            .exec(function (err, course) {
+            .exec(function (err, photo) {
                 if (err) {
                     console.log('Photo could not be loaded: ' + err);
                 }
-
-                res.send(course);
+                photo.imageData.data = undefined;
+                res.send(photo);
             })
     },
     getLatestPhotos: function (req, res, next) {

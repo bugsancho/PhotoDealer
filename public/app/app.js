@@ -31,7 +31,8 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/photo/upload', {
             templateUrl: '/partials/photos/photo-upload',
-            controller: 'PhotosCtrl'
+            controller: 'PhotosCtrl',
+            resolve: routeUserChecks.authenticated
         })
         .when('/signup', {
             templateUrl: '/partials/account/signup',

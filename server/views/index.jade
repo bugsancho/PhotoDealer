@@ -10,12 +10,12 @@ block main-content
                 span.icon-bar
 
             .navbar-collapse.collapse.navbar-responsive-collapse
-                ul.nav.navbar-nav
+                ul.nav.navbar-nav(ng-controller="MainCtrl",ng-cloak="true")
                     li
                         a(href="#/") Home
                     li
                         a(href="#/photos") Photos
-                    li
+                    li(ng-show="identity.isAuthenticated()")
                         a(href="#/photo/upload") Upload
                 div(ng-include="'partials/account/login'")
 

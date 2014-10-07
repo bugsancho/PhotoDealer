@@ -25,7 +25,7 @@ module.exports = {
     isAuthenticated: function (req, res, next) {
         if (!req.isAuthenticated()) {
             res.status(403);
-            res.redirect('/');
+            res.redirect('/#/unauthorized');
             res.end();
         }
         else {

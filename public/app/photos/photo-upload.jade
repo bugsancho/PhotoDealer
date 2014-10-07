@@ -6,23 +6,23 @@
                 .form-group
                     label.col-md-2.control-label(for="title") Picture Title
                     .col-md-10
-                        input.form-control(type="text", placeholder="Title", name ="title")
+                        input.form-control(type="text", placeholder="Title", name ="title", required)
                 .form-group
                     label.col-md-2.control-label(for="file") Choose File:
                     .col-md-10
-                        input.form-control(type="file", accept="image/*", name="upload")
+                        input.form-control(type="file", accept="image/*", name="upload", required)
                 .form-group
                     label.col-md-2.control-label(for="category") Category
                     .col-md-10
-                        input.form-control(type="text", placeholder="Category", name="category")
+                        input.form-control(type="text", placeholder="Category", name="category", required)
                 .form-group
                     label.col-md-2.control-label(for="price") Price
                     .col-md-10
-                        input.form-control(type="number", placeholder="Price", name="price")
-                .form-group(ng-hide="true")
-                    label.col-md-2.control-label(for="author") Price
+                        input.form-control(type="number",step="any", min="0", placeholder="Price", name="price", required)
+                .form-group
+                    label.col-md-2.control-label(for="tags") Tags
                     .col-md-10
-                        input.form-control(type="text", value="{{identity.currentUser._id}}", name="author")
+                        input.form-control(type="text", placeholder="Tag1, Tag2", name ="tags", required)
                 .pull-right
                     input.btn.btn-primary(type="submit", value="Send" ng-click="upload()")
                     a.btn.btn-primary(href="#/") Cancel

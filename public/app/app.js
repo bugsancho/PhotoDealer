@@ -48,6 +48,9 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/unauthorized', {
+            templateUrl: '/partials/account/unauthorized'
+        })
 });
 
 app.run(function($rootScope, $location) {

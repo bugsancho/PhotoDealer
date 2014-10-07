@@ -78,15 +78,30 @@ module.exports = {
             newPhoto.downloadsCount = 0;
             newPhoto.pictureUrl = '/api/photos/' + newPhoto._id + '/file';
 
+            newPhoto.author = req.user._id;
+            newPhoto.price = Math.round(newPhoto.price * 100) / 100;
+            newPhoto.tags = parseTags(newPhoto.tags);
+
             newPhoto.save(function (err, newPhoto) {
                 if (err) {
                     console.log(err);
                 }
 
-                // console.log(newPhoto._id);
-                res.redirect('/');
+                //console.log('!' + newPhoto._id);
+                res.redirect('/#/photo/upload');
             });
         });
     }
 
 };
+
+function parseTags(tagsAsString) {
+    var result = [];
+    var elements = tagsAsString[0].split(',');
+
+    for (var i = 0; i < elements.length; i += 1) {
+        result.push(elements[i].trim());
+    }
+
+    return result;
+}

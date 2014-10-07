@@ -56,7 +56,7 @@ app.config(function($routeProvider, $locationProvider) {
 app.run(function($rootScope, $location) {
     $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
         if (rejection === 'not authorized') {
-            $location.path('/');
+            $location.path('/unauthorized');
         }
     })
 });

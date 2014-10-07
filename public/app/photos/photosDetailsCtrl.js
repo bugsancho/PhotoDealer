@@ -8,9 +8,13 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, PhotosResour
 
     $scope.currentUser = identity.currentUser;
 
+    $scope.downloadUrl = function () {
+        return '/api/photos/' + $scope.photo._id + '/download';
+    };
+
     $scope.buy = function () {
         // TODO: Add logic if you have enough money
-        notifier.error('ADD LOGIC buy!!!!');
+       // notifier.error('ADD LOGIC buy!!!!');
         haveMoney = true;
 
         if (haveMoney) {

@@ -6,6 +6,7 @@ module.exports = {
         var newUserData = req.body;
         newUserData.salt = encryption.generateSalt();
         newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
+        newUserData.credits = 0;
         User.create(newUserData, function (err, user) {
             debugger;
             if (err) {

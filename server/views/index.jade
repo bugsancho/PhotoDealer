@@ -3,7 +3,8 @@ block main-content
     header.navbar-default
         .container.mrg-btm
             .navbar-header
-                a.navbar-brand(href="#/") Photo Dealer
+                a.navbar-brand(href="#/")
+                    | Photo Dealer
             button.navbar-toggle(type="button",data-toggle="collapse",data-target=".navbar-responsive-collapse")
                 span.icon-bar
                 span.icon-bar
@@ -12,11 +13,17 @@ block main-content
             .navbar-collapse.collapse.navbar-responsive-collapse
                 ul.nav.navbar-nav(ng-controller="MainCtrl",ng-cloak="true")
                     li
-                        a(href="#/") Home
+                        a(href="#/")
+                            | Home
                     li
-                        a(href="#/photos") Photos
+                        a(href="#/photos")
+                            | Photos
                     li(ng-show="identity.isAuthenticated()")
-                        a(href="#/photo/upload") Upload
+                        a(href="#/photo/upload")
+                            | Upload
+                    li(ng-show="identity.isAuthorizedForRole('admin')")
+                        a(href="#/admin/users")
+                            | Admin
                 div(ng-include="'partials/account/login'")
 
     section

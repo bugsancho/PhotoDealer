@@ -1,5 +1,32 @@
 .container
-    table.table
-        tr(ng-repeat="user in users")
-            td {{ user.firstName }}
-            td {{ user.lastName }}
+    form.form-horizontal(name="profileForm")
+        fieldset
+            legend Create New User
+            table.table.table-striped.table-hover.table.table-bordered.text-center
+                thead
+                    tr.success
+                        th.text-center.col-md-2
+                            | Username
+                        th.text-center.col-md-2
+                            | First Name
+                        th.text-center.col-md-2
+                            | Last Name
+                        th.text-center.col-md-1
+                            | Balance
+                        th.text-center.col-md-3
+                            | Add money
+                tr(ng-repeat="user in users")
+                    td
+                        input.form-control(ng-model="user.username", placeholder="{{ user.username }}")
+                    td
+                        input.form-control(ng-model="user.firstName", placeholder="{{ user.firstName }}")
+                    td
+                        input.form-control(ng-model="user.lastName", placeholder="{{ user.lastName }}")
+                    td
+                        | {{ user.credits || 0 | currency:'$' }}
+                    td
+                        .form-group.mrg-btm-0.mrg-side-5
+                            .input-group
+                                input.form-control(type="number",step="0.10", min="0", ng-model="user.currency", placeholder="Money to add to {{ user.username }}")
+                                span.input-group-btn
+                                    input.btn.btn-default(type="submit", value="Update User" ng-click="upload(user)")

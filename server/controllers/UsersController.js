@@ -49,5 +49,14 @@ module.exports = {
 
             res.send(collection);
         })
+    },
+    getUserById: function (req, res) {
+        User.findOne({_id: req.params.id}).exec(function (err, user) {
+            if(err){
+                console.log('Failed to find the user: ' + err);
+            }
+
+            res.send(user);
+        });
     }
 }

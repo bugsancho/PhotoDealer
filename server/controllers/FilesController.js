@@ -19,8 +19,11 @@ module.exports = {
                         return;
                     }
 
-                    // TODO: remove 'false &&'
-                    if (false && userData.credits < photo.price) {
+                    if (isBought(userData.boughtPhotosIds, photoId)) {
+                        return res = sendFile(res, photo);
+                    }
+                    else if (false && userData.credits < photo.price) {
+                        // TODO: remove 'false &&'
                         return res.status(400).send('You do not have enough money');
                     }
                     else {
@@ -61,9 +64,7 @@ module.exports = {
                                             return;
                                         }
 
-                                        res.contentType(photo.imageData.contentType);
-                                        res.setHeader('Content-disposition', 'attachment; filename=' + photo.title);
-                                        res.send(photo.imageData.data);
+                                        return res = sendFile(res, photo);
                                     });
                                 });
                             });
@@ -72,9 +73,7 @@ module.exports = {
                 })
             }
             else {
-                res.contentType(photo.imageData.contentType);
-                res.setHeader('Content-disposition', 'attachment; filename=' + photo.title);
-                res.send(photo.imageData.data);
+                return res = sendFile(res, photo);
             }
         })
     },
@@ -163,4 +162,23 @@ function parseTags(tagsAsString) {
     }
 
     return result;
+}
+
+function sendFile(res, photo) {
+    res.contentType(photo.imageData.contentType);
+    res.setHeader('Content-disposition', 'attachment; filename=' + photo.title);
+    res.send(photo.imageData.data);
+
+    return res;
+}
+
+function isBought(array, pictureId) {
+    for (var i = 0, len = array.length; i < len; i += 1) {
+        var currentPicture = array[i];
+        if(currentPicture == pictureId){
+            return true;
+        }
+    }
+
+    return false;
 }

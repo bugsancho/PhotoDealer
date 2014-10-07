@@ -24,9 +24,8 @@ module.exports = {
     },
     isAuthenticated: function (req, res, next) {
         if (!req.isAuthenticated()) {
-            res.status(403);
-            res.redirect('/#/unauthorized');
-            res.end();
+            console.log('redirect');
+            res.status(401).redirect('/#/unauthorized');
         }
         else {
             next();
@@ -38,9 +37,7 @@ module.exports = {
                 next();
             }
             else {
-                res.status(403);
-                res.redirect('/');
-                res.end();
+               res.status(403).redirect('/');
             }
         }
     }

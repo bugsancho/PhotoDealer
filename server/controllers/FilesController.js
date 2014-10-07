@@ -3,20 +3,24 @@ var User = require('mongoose').model('User');
 
 module.exports = {
     downloadPhoto: function (req, res, next) {
-        var photoId = req.params.id;
+        if(!req.user){
+            return res.status(401).send('Unauthorized');
+        }
+
         var userId = req.user._id;
+        var photoId = req.params.id;
         Photo.findOne({_id: photoId}, function (err, photo) {
             if (err) {
                 console.log('Photo could not be loaded: ' + err);
-                return;
+                return res.status(400).send('Photo could not be loaded');
             }
 
             var authorId = photo.author;
             if (userId != authorId) {
                 User.findById(userId, function (err, userData) {
                     if (err) {
-                        console.log('User could not be loaded (photo download): ' + err);
-                        return;
+                        console.log('User could not be found (photo download): ' + err);
+                        return res.status(400).send('User could not be found');
                     }
 
                     if (isBought(userData.boughtPhotosIds, photoId)) {
@@ -35,13 +39,13 @@ module.exports = {
                         User.update({_id: userId}, userData, function (err) {
                             if (err) {
                                 console.log('User update error: ' + err);
-                                return;
+                                return res.status(500).send('User update error');
                             }
 
                             User.findById(authorId, function (err, authorData) {
                                 if (err) {
-                                    console.log('Author could not be loaded (photo download): ' + err);
-                                    return;
+                                    console.log('Author could not be found (photo download): ' + err);
+                                    return res.status(500).send('Author could not be found');
                                 }
 
                                 authorData.credits += photo.price;
@@ -51,7 +55,7 @@ module.exports = {
                                 User.update({_id: authorId}, authorData, function (err) {
                                     if (err) {
                                         console.log('Author update error: ' + err);
-                                        return;
+                                        return res.status(500).send('Author update error');
                                     }
 
                                     photo.downloadsCount++;
@@ -61,7 +65,7 @@ module.exports = {
                                     Photo.update({_id: photoId}, photo, function (err) {
                                         if (err) {
                                             console.log('Photo update error: ' + err);
-                                            return;
+                                            return res.status(500).send('Photo update error');
                                         }
 
                                         return res = sendFile(res, photo);
@@ -165,8 +169,11 @@ function parseTags(tagsAsString) {
 }
 
 function sendFile(res, photo) {
+    var fileName = photo.title;
+
     res.contentType(photo.imageData.contentType);
-    res.setHeader('Content-disposition', 'attachment; filename=' + photo.title);
+    res.setHeader('Content-disposition', 'attachment; filename=' + fileName);
+    res.setHeader('x-filename', fileName);
     res.send(photo.imageData.data);
 
     return res;

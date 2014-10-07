@@ -45,16 +45,16 @@ module.exports.seedInitialUsers = function () {
 
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'Ivaylo');
-            User.create({username: 'ivaylo.kenov', firstName: 'Ivaylo', lastName: 'Kenov', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+            User.create({username: 'ivaylo.kenov', firstName: 'Ivaylo', lastName: 'Kenov', credits: 0, salt: salt, hashPass: hashedPwd, roles: ['admin']});
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'admin');
-            User.create({username: 'admin', firstName: 'admin', lastName: 'admin', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+            User.create({username: 'admin', firstName: 'admin', lastName: 'admin', credits: 0, salt: salt, hashPass: hashedPwd, roles: ['admin']});
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'Nikolay');
-            User.create({username: 'Nikolay.IT', firstName: 'Nikolay', lastName: 'Kostov', salt: salt, hashPass: hashedPwd, roles: ['standard']});
+            User.create({username: 'Nikolay.IT', firstName: 'Nikolay', lastName: 'Kostov', credits: 0, salt: salt, hashPass: hashedPwd, roles: ['standard']});
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, 'Doncho');
-            User.create({username: 'Doncho', firstName: 'Doncho', lastName: 'Minkov', salt: salt, hashPass: hashedPwd});
+            User.create({username: 'Doncho', firstName: 'Doncho', lastName: 'Minkov', credits: 0, salt: salt, hashPass: hashedPwd});
             console.log('Users added to database...');
         }
     });

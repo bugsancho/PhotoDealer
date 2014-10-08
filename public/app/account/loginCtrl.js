@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth) {
+app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth,socket) {
     $scope.identity = identity;
 
     $scope.login = function(user) {
@@ -14,8 +14,10 @@ app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth
     };
 
     $scope.logout = function() {
+        var id = identity.currentUser._id;
         auth.logout().then(function() {
             notifier.success('Successful logout!');
+            socket.unsubscribe(id);
             if ($scope.user) {
                 $scope.user.username = '';
                 $scope.user.password = '';

@@ -1,4 +1,5 @@
 var Photo = require('mongoose').model('Photo');
+var socket = require('../utilities/socket');
 var DEFAULT_PAGE_SIZE = 6;
 var DEFAULT_NEW_PHOTOS_PAGE_SIZE = 4;
 
@@ -12,6 +13,7 @@ module.exports = {
                 onlyApprovedPhotos = false;
             }
         }
+
         Photo.find({})
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(queries.limit || DEFAULT_PAGE_SIZE)
@@ -51,12 +53,19 @@ module.exports = {
 
         console.log(req.params.id);
         Photo.findOne({_id: req.params.id})
-            .remove()
             .exec(function (err, photo) {
                 if (err) {
-                    console.log('Photo could not be deleted: ' + err);
-
+                    console.log('Photo could not be found: ' + err);
                 }
+                var authorId = photo.authorId;
+                var title = photo.title;
+                photo.remove(function (err, success) {
+                    if (err) console.log('Photo could not be removed: ' + err);
+
+                    socket.sendMessage(photo.authorId, 'Your photo "' + photo.title + '" has been deleted :( ');
+                });
+
+
                 res.send({message: 'Photo deleted successfully!'});
             })
     },
@@ -69,6 +78,7 @@ module.exports = {
                     if (req.query && req.query.isApproved) {
                         photo.isApproved = true;
                         photo.save();
+                        socket.sendMessage(photo.authorId, 'Your photo "' + photo.title + '" has been approved!');
                     }
 
                     if (err) {

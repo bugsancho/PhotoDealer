@@ -16,6 +16,7 @@ module.exports = {
             }
 
             var authorId = photo.authorId;
+
             if (userId != authorId) {
                 User.findById(userId, function (err, userData) {
                     if (err) {
@@ -60,9 +61,9 @@ module.exports = {
 
                                     photo.downloadsCount++;
 
-                                    photo = photo.toObject();
-                                    delete photo._id;
-                                    Photo.update({_id: photoId}, photo, function (err) {
+                                    photoInDb = photo.toObject();
+                                    delete photoInDb._id;
+                                    Photo.update({_id: photoId}, photoInDb, function (err) {
                                         if (err) {
                                             console.log('Photo update error: ' + err);
                                             return res.status(500).send('Photo update error');

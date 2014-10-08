@@ -28,8 +28,7 @@ module.exports = {
                 return;
             }
             if (collection.length === 0) {
-                Photo.create({title: 'Unicorn', category: 'Unicorns', published: Date(), isApproved: true, pictureUrl: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg'});
-                Photo.create({title: 'Unicorn1', category: 'Unicorns', published: Date(), isApproved: true, pictureUrl: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg'});
+                Photo.create({title: 'Popovo lake, Pirin', category: 'Mountains', published: Date(), isApproved: true, pictureUrl: 'https://docs.google.com/uc?authuser=0&id=0B4y_-gLZ6-kbbHJVSW1oM0MxZEU'});
                 console.log('Adding photos to database!');
             }
         });

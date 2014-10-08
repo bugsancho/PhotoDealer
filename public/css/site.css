@@ -10,5 +10,8 @@
 }
 .btn,
 .login-form {
-  margin-left: 5px;
+  margin: 0 2px;
+}
+.title {
+  margin: 0px;
 }

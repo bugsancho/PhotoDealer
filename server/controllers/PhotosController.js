@@ -15,10 +15,32 @@ module.exports = {
         }
 
         Photo.find({})
+        var query = Photo.find({})
+            .where('isApproved', onlyApprovedPhotos);
+        if (queries) {
+            if (queries.hasOwnProperty('title')) {
+                query = query.where('title', queries.title);
+            }
+
+            if (queries.hasOwnProperty('authorName')) {
+                query = query.where('authorName', queries.authorName);
+            }
+
+            if (queries.hasOwnProperty('category')) {
+                query = query.where('category', queries.category);
+            }
+
+            if (queries.hasOwnProperty('tags')) {
+                query = query.where('tags', queries.tags);
+            }
+
+            if (queries.hasOwnProperty('price')) {
+                query = query.where('price', queries.price);
+            }
+        }
+        query = query.sort(queries.sort)
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(queries.limit || DEFAULT_PAGE_SIZE)
-            .sort(queries.sort)
-            .where('isApproved', onlyApprovedPhotos)
             .select('published title downloadsCount pictureUrl authorName')
             .exec(function (err, collection) {
                 if (err) {

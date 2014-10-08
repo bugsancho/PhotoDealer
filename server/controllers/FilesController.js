@@ -26,8 +26,8 @@ module.exports = {
                     if (isBought(userData.boughtPhotosIds, photoId)) {
                         return res = sendFile(res, photo);
                     }
-                    else if (false && userData.credits < photo.price) {
-                        // TODO: remove 'false &&'
+                    else if (userData.credits < photo.price) {
+                        // TODO: remove 'false &&' - Done!
                         return res.status(400).send('You do not have enough money');
                     }
                     else {

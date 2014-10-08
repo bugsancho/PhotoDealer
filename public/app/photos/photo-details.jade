@@ -22,7 +22,7 @@
                             | Downloads: {{ photo.downloadsCount || 0 }}
                         li.list-group-item
                             | Price: {{ photo.price || 0 | currency:'$' }}
-                    a.btn.btn-primary(ng-href="{{downloadUrl()}}",ng-click="buy()", ng-show="!isBought()")
+                    button.btn.btn-primary(ng-click="buy()", ng-show="!isBought()")
                         | Buy now!
-                    a.btn.btn-primary(ng-href="{{downloadUrl()}}",ng-click="download()", ng-show="isBought()")
+                    button.btn.btn-primary(ng-click="download()", ng-show="isBought()")
                         | Download!

@@ -52,7 +52,9 @@ module.exports = {
         })
     },
     getUserById: function (req, res) {
-        User.findOne({_id: req.params.id}).exec(function (err, user) {
+        User.findOne({_id: req.params.id})
+            .select('-salt -hashPass')
+            .exec(function (err, user) {
             if(err){
                 console.log('Failed to find the user: ' + err);
             }

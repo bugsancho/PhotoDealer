@@ -11,7 +11,7 @@ module.exports = {
                 return;
             }
 
-            var authorId = photo.author;
+            var authorId = photo.authorId;
             if (userId != authorId) {
                 User.findById(userId, function (err, userData) {
                     if (err) {
@@ -116,7 +116,8 @@ module.exports = {
             newPhoto.downloadsCount = 0;
             newPhoto.pictureUrl = '/api/photos/' + newPhoto._id + '/file';
 
-            newPhoto.author = req.user._id;
+            newPhoto.authorId = req.user._id;
+            newPhoto.authorName = req.user.firstName + ' ' + req.user.lastName;
             newPhoto.price = Math.round(newPhoto.price * 100) / 100;
             newPhoto.tags = parseTags(newPhoto.tags);
 
@@ -125,7 +126,7 @@ module.exports = {
                     console.log(err);
                 }
 
-                var authorId = newPhoto.author;
+                var authorId = newPhoto.authorId;
                 User.findById(authorId, function (err, userData) {
                     if (err) {
                         console.log('User could not be loaded (photo upload): ' + err);

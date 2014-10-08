@@ -8,7 +8,6 @@ app.controller('UserListCtrl', function($scope, $location, UsersResource, auth, 
         auth.update(user).then(function(){
             notifier.success('Successfully added $' + $scope.money[user._id] + ' to ' + user.username);
             $scope.money[user._id] = 0;
-            $location.path('/admin/users');
         });
     };
 });

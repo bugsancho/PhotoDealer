@@ -14,19 +14,7 @@ app.factory('identity', function ($window, UsersResource) {
             return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
         },
         updateUser: function () {
-            if (this.currentUser) {
-              var bla =   UsersResource.get({id: user._id});
-
-                user = bla;
-                bla.then(function (data) {
-                    console.log(data)
-                })
-                sessionStorage['user'] = JSON.stringify(bla);
-                console.log(sessionStorage['user']);
-            }
-            else {
-                sessionStorage.removeItem('user');
-            }
+          
         }
     }
 });

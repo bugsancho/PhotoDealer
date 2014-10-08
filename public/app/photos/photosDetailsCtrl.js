@@ -38,37 +38,28 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
         if($scope.currentUser) {
         // If current user is author of picture or if picture ID exists in current user pictures array
             // If current user is author of picture or if picture ID exists in current user pictures array
-        if($scope.author && $scope.currentUser){
+        if($scope.author && $scope.currentUser) {
             if ($scope.photo.authorId === $scope.currentUser._id) {
-            if ($scope.author.username === $scope.currentUser.username) {
-                // this is the author of the picture
-                return true;
-            }
-            else {
-                var boughtPhotos = identity.currentUser.boughtPhotosIds;
-                for (var i = 0, len = boughtPhotos.length; i < len; i += 1) {
-                    var photoId = boughtPhotos[i];
-                    console.log(photoId)
-                    console.log($scope.photo._id)
-                    if ($scope.photo._id === photoId) {
-                        // current user has already bought the picture
-                        return true;
-                    }
-                // this is the author of the picture
-                return true;
-            }
-            else {
-                var boughtPhotos = identity.currentUser.boughtPhotosIds;
-                for (var i = 0, len = boughtPhotos.length; i < len; i += 1) {
-                    var photoId = boughtPhotos[i];
-                    if ($scope.photo._id === photoId) {
-                        // current user has already bought the picture
+                if ($scope.author.username === $scope.currentUser.username) {
+                    // this is the author of the picture
+                    return true;
+                }
+                else {
+                    var boughtPhotos = identity.currentUser.boughtPhotosIds;
+                    for (var i = 0, len = boughtPhotos.length; i < len; i += 1) {
+                        var photoId = boughtPhotos[i];
+                        console.log(photoId)
+                        console.log($scope.photo._id)
+                        if ($scope.photo._id === photoId) {
+                            // current user has already bought the picture
+                            return true;
+                        }
+                        // this is the author of the picture
                         return true;
                     }
                 }
+
+                return false;
             }
         }
-
-        return false;
-    }
-});
+}}});

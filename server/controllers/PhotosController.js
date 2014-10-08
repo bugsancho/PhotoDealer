@@ -5,11 +5,18 @@ var DEFAULT_NEW_PHOTOS_PAGE_SIZE = 4;
 module.exports = {
     getAllPhotos: function (req, res, next) {
         var queries = req.query;
-
+        var user = req.user;
+        var onlyApprovedPhotos = true;
+        if(user && user.roles.indexOf('admin') != -1){
+            if(queries.showUnapproved){
+                onlyApprovedPhotos = false;
+            }
+        }
         Photo.find({})
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(queries.limit || DEFAULT_PAGE_SIZE)
             .sort(queries.sort)
+            .where('isApproved',onlyApprovedPhotos)
             .select('published title downloadsCount pictureUrl')
             .exec(function (err, collection) {
                 if (err) {
@@ -23,6 +30,7 @@ module.exports = {
         Photo.findOne({_id: req.params.id})
             .select('-imageData')
             .exec(function (err, photo) {
+
                 if (err) {
                     console.log('Photo could not be loaded: ' + err);
                 }

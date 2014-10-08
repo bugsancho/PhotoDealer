@@ -12,6 +12,9 @@ app.factory('PhotosResource', function ($resource, $http, $q) {
         },
         downloadFile: function (id) {
             return downloadFile(id);
+        },
+        getUnapproved: function (id) {
+            return PhotosResource.query({'showUnapproved':true, limit: 4});
         }
     };
 

@@ -21,9 +21,20 @@ block main-content
                     li(ng-show="identity.isAuthenticated()")
                         a(href="#/photo/upload")
                             | Upload
-                    li(ng-show="identity.isAuthorizedForRole('admin')")
-                        a(href="#/admin/users")
+
+
+                    li.dropdown(ng-show="identity.currentUser.isAdmin()")
+                        a.dropdown-toggle(href="", data-toggle="dropdown")
                             | Admin
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href="#/admin/users") Users
+                            li
+                                a(href="#/profile") Profile
+                            li
+                                a(href="#/photos") Authorize Photos
+
                 div(ng-include="'partials/account/login'")
 
     section

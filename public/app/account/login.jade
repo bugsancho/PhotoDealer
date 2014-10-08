@@ -12,8 +12,6 @@
                 | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
                 span.caret
             ul.dropdown-menu
-                li(ng-show="identity.currentUser.isAdmin()")
-                    a(href="#/admin/users") Users
                 li(ng-show="identity.isAuthenticated()")
                     a(href="#/profile") Profile
                 li

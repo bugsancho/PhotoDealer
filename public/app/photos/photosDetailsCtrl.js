@@ -1,4 +1,4 @@
-app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, PhotosResource, UsersResource, notifier, identity) {
+app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, PhotosResource, UsersResource, notifier, identity,$location) {
     identity.updateUser();
     PhotosResource.PhotosResource.get({id: $routeParams.id})
         .$promise.then(function (data) {
@@ -7,7 +7,7 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
 
     $scope.currentUser = identity.currentUser;
     $scope.identity = identity;
-
+    $scope.deletePhoto = deletePhoto;
     $scope.download = function () {
         if ($scope.photo && $scope.currentUser) {
 
@@ -41,6 +41,13 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
             return 'Buy now!';
         }
     };
+
+    function deletePhoto(photoId) {
+        PhotosResource.PhotosResource.remove({id: photoId}).$promise.then(function (data) {
+            notifier.success(data.message);
+            $location.path('/');
+        })
+    }
 
     function isDownloadAllowed() {
         if ($scope.currentUser && $scope.photo) {

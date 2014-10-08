@@ -24,3 +24,5 @@
                             | Price: {{ photo.price || 0 | currency:'$' }}
                         button.btn.btn-primary(ng-click="download()", ng-show="identity.isAuthenticated()")
                             | {{buttonText()}}
+                        button.btn.btn-warning(ng-click="deletePhoto(photo._id)", ng-show="identity.isAuthorizedForRole('admin')")
+                            | Delete

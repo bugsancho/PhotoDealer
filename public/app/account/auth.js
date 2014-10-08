@@ -17,7 +17,7 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             var deferred = $q.defer();
 
             var updatedUser = new UsersResource(user);
-            updatedUser._id = identity.currentUser._id;
+            updatedUser._id = user._id;
             updatedUser.$update().then(function() {
                 identity.currentUser.firstName = updatedUser.firstName;
                 identity.currentUser.lastName = updatedUser.lastName;

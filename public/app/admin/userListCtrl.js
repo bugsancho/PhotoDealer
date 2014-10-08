@@ -4,7 +4,6 @@ app.controller('UserListCtrl', function($scope, $location, UsersResource, auth, 
 
     $scope.updateUser = function(user){
         user.credits += $scope.money[user._id];
-        console.log(user.username);
 
         auth.update(user).then(function(){
             notifier.success('Successfully added $' + $scope.money[user._id] + ' to ' + user.username);

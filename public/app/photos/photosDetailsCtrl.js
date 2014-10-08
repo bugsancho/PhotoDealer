@@ -1,4 +1,4 @@
-app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, PhotosResource, UsersResource, notifier, identity,$location) {
+app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, PhotosResource, UsersResource, notifier, identity, $location) {
     identity.updateUser();
     PhotosResource.PhotosResource.get({id: $routeParams.id})
         .$promise.then(function (data) {

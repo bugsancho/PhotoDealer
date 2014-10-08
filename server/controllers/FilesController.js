@@ -116,7 +116,7 @@ module.exports = {
         req.busboy.on('finish', function () {
 
             newPhoto.published = new Date();
-            newPhoto.isApproved = false;
+            newPhoto.isApproved = req.user.isTrustedUploader();
             newPhoto.downloadsCount = 0;
             newPhoto.pictureUrl = '/api/photos/' + newPhoto._id + '/file';
 

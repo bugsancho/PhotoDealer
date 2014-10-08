@@ -27,6 +27,12 @@ userSchema.method({
             return false;
 
         }
+    },
+    isTrustedUploader: function () {
+        if(this.roles.indexOf('trusted') != -1 || this.roles.indexOf('admin') != -1 ){
+            return true;
+        }
+        return false;
     }
 });
 

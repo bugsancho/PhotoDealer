@@ -33,8 +33,12 @@ module.exports = {
                 updatedUserData.salt = encryption.generateSalt();
                 updatedUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
             }
-
+            console.log(updatedUserData);
+            console.log(req.body._id);
+            console.log(req.user._id);
+            console.log(req.user._id === req.body._id);
             User.update({_id: req.body._id}, updatedUserData, function () {
+                console.log('UPDATED!!!');
                 res.end();
             })
         }

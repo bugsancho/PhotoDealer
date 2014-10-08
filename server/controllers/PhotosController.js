@@ -73,7 +73,7 @@ module.exports = {
     },
     deletePhoto: function (req, res, next) {
 
-        console.log(req.params.id);
+       // console.log(req.params.id);
         Photo.findOne({_id: req.params.id})
             .exec(function (err, photo) {
                 if (err) {

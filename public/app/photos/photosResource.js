@@ -1,6 +1,8 @@
 app.factory('PhotosResource', function ($resource, $http, $q) {
     var photosUrl = '/api/photos';
-    var PhotosResource = $resource(photosUrl + '/:id', {id: '@id'});
+    var PhotosResource = $resource(photosUrl + '/:id', {id: '@id'},
+        {update: {method: 'PUT', params: {isApproved: true}, isArray: false}}
+    );
 
     return {
         PhotosResource: PhotosResource,
@@ -14,7 +16,7 @@ app.factory('PhotosResource', function ($resource, $http, $q) {
             return downloadFile(id);
         },
         getUnapproved: function (id) {
-            return PhotosResource.query({'showUnapproved':true, limit: 4});
+            return PhotosResource.query({'showUnapproved': true, limit: 4});
         }
     };
 

@@ -9,6 +9,8 @@ module.exports = function (app) {
 
     app.get('/api/photos', controllers.photos.getAllPhotos);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
+    app.put('/api/photos/:id', auth.isInRole('admin'), controllers.photos.updatePhoto);
+    app.delete('/api/photos/:id', auth.isInRole('admin'), controllers.photos.deletePhoto);
     app.get('/api/photos/:id/file', controllers.photos.getPhotoFile);
     app.post('/api/photos', auth.isAuthenticated, controllers.files.uploadPhoto);
     app.get('/api/photos/:id/download', controllers.files.downloadPhoto);

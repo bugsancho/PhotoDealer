@@ -7,8 +7,8 @@ module.exports = {
         var queries = req.query;
         var user = req.user;
         var onlyApprovedPhotos = true;
-        if(user && user.roles.indexOf('admin') != -1){
-            if(queries.showUnapproved){
+        if (user && user.roles.indexOf('admin') != -1) {
+            if (queries.showUnapproved) {
                 onlyApprovedPhotos = false;
             }
         }
@@ -16,8 +16,8 @@ module.exports = {
             .skip(queries.page * DEFAULT_PAGE_SIZE)
             .limit(queries.limit || DEFAULT_PAGE_SIZE)
             .sort(queries.sort)
-            .where('isApproved',onlyApprovedPhotos)
-            .select('published title downloadsCount pictureUrl')
+            .where('isApproved', onlyApprovedPhotos)
+            .select('published title downloadsCount pictureUrl authorName')
             .exec(function (err, collection) {
                 if (err) {
                     console.log('Photos could not be loaded: ' + err);
@@ -46,5 +46,37 @@ module.exports = {
                 res.contentType(photo.imageData.contentType);
                 res.send(photo.imageData.data);
             })
+    },
+    deletePhoto: function (req, res, next) {
+
+        console.log(req.params.id);
+        Photo.findOne({_id: req.params.id})
+            .remove()
+            .exec(function (err, photo) {
+                if (err) {
+                    console.log('Photo could not be deleted: ' + err);
+
+                }
+                res.send({message: 'Photo deleted successfully!'});
+            })
+    },
+    updatePhoto: function (req, res, next) {
+
+        if (req.params.id) {
+            Photo.findOne({_id: req.params.id})
+                .exec(function (err, photo) {
+
+                    if (req.query && req.query.isApproved) {
+                        photo.isApproved = true;
+                        photo.save();
+                    }
+
+                    if (err) {
+                        console.log('Photo could not be updated: ' + err);
+
+                    }
+                    res.send({message: 'Photo updated successfully!'})
+                })
+        }
     }
 };

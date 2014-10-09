@@ -39,6 +39,7 @@ userSchema.method({
 var User = mongoose.model('User', userSchema);
 
 module.exports.seedInitialUsers = function () {
+
     User.find({}).exec(function (err, collection) {
         if (err) {
             console.log('Cannot find users: ' + err);

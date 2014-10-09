@@ -22,7 +22,6 @@ module.exports = {
                 Category.create({title: 'Architecture'});
                 Category.create({title: 'Sky'});
                 Category.create({title: 'Other'});
-                Category.create({title: ''});
 
                 console.log('Adding categories to database!');
             }

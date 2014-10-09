@@ -1,4 +1,4 @@
-app.factory('PhotosResource', function ($resource, $http, $q) {
+app.factory('PhotosResource', ['$resource', '$http', '$q' , function ($resource, $http, $q) {
     var photosUrl = '/api/photos';
     var PhotosResource = $resource(photosUrl + '/:id', {id: '@id'},
         {update: {method: 'PUT', params: {isApproved: true}, isArray: false}}
@@ -131,4 +131,4 @@ app.factory('PhotosResource', function ($resource, $http, $q) {
         }
         return result;
     }
-});
+}]);

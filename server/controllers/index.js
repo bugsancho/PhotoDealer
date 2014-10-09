@@ -1,4 +1,4 @@
-var usersController = require(__dirname + '/usersController');
+var usersController = require(__dirname + '/UsersController');
 var photosController = require(__dirname + '/PhotosController');
 var filesController = require(__dirname + '/FilesController');
 module.exports = {

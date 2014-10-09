@@ -14,8 +14,9 @@
                 .form-group
                     label.col-md-2.control-label(for="category") Category
                     .col-md-10
-                        select.form-control()
-                            option(value="{{category.id}}" ng-repeat="category in categories") {{category.title}}
+                        select.form-control(name="category" required)
+                            option(value="")
+                            option(value="{{category.title}}" ng-repeat="category in categories") {{category.title}}
                 .form-group
                     label.col-md-2.control-label(for="price") Price
                     .col-md-10

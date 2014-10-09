@@ -13,7 +13,6 @@ module.exports = {
                 onlyApprovedPhotos = false;
             }
         }
-        console.log(queries)
         var query = Photo.find({})
             .where('isApproved', onlyApprovedPhotos);
         if (queries) {

@@ -40,6 +40,9 @@ app.controller('PhotosCtrl', function ($scope, PhotosResource, $location, identi
             if (filter.hasOwnProperty('price') && filter.price) {
                 query['price'] = filter.price;
             }
+            if (filter.hasOwnProperty('photosToShow') && filter.photosToShow) {
+                query['photosToShow'] = filter.photosToShow;
+            }
         }
 
         if ($scope.sort) {

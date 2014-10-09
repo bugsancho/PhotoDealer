@@ -40,9 +40,9 @@
             .col-md-2
                 div Price
                 input.form-control(type="number",step="any", min="0", placeholder='Price', ng-model='filter.price', ng-change='filterBy()')
-            .col-md-2
+            .col-md-2(ng-show="identity.isAuthenticated()")
                 div Photos to display
-                select.form-control(ng-model="sort.photosToShow", ng-change='filterBy()' ng-show="identity.isAuthenticated()")
+                select.form-control(ng-model="filter.photosToShow", ng-change='filterBy()')
                     option(value="", selected="selected") All
                     option(value="mine") My Uploads
                     option(value="bought") My Purchases

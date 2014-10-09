@@ -17,6 +17,8 @@ app.factory('identity', function ($window, UsersResource) {
             if (this.currentUser) {
                 UsersResource.get({id: this.currentUser._id}).$promise.then(function (data) {
                     sessionStorage['user'] = JSON.stringify(data);
+                    user = data;
+                    this.currentUser = data;
                 });
 
             }

@@ -9,7 +9,8 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
     $scope.identity = identity;
     $scope.deletePhoto = deletePhoto;
     $scope.download = function () {
-        if ($scope.photo && $scope.currentUser) {
+
+        if ($scope.photo && identity.currentUser) {
             $('#buyPhoto').modal('hide');
             var message;
             if (isDownloadAllowed()) {
@@ -60,10 +61,10 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
     }
 
     function isDownloadAllowed() {
-        if ($scope.currentUser && $scope.photo) {
+        if (identity.currentUser && $scope.photo) {
             var boughtPhotos = identity.currentUser.boughtPhotosIds;
 
-            var isAuthor = $scope.photo.authorId === $scope.currentUser._id;
+            var isAuthor = $scope.photo.authorId === identity.currentUser._id;
 
             var notBought = !isAuthor && !isPhotoBought(boughtPhotos, $scope.photo._id);
 

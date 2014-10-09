@@ -13,29 +13,35 @@ module.exports = {
                 onlyApprovedPhotos = false;
             }
         }
-
-        Photo.find({})
+        console.log(queries)
         var query = Photo.find({})
             .where('isApproved', onlyApprovedPhotos);
         if (queries) {
             if (queries.hasOwnProperty('title')) {
-                var titleRegEx = new RegExp(queries.title,'i');
+                var titleRegEx = new RegExp(queries.title, 'i');
                 query = query.where('title', titleRegEx);
             }
-
+            if (queries.hasOwnProperty('photosToShow')) {
+                if (queries.photosToShow === 'mine') {
+                    query = query.where('_id').in(req.user.ownPhotosIds);
+                }
+                else if (queries.photosToShow === 'bought') {
+                    query = query.where('_id').in(req.user.boughtPhotosIds);
+                }
+            }
             if (queries.hasOwnProperty('authorName')) {
-                var authorRegEx = new RegExp(queries.authorName,'i');
+                var authorRegEx = new RegExp(queries.authorName, 'i');
                 query = query.where('authorName', authorRegEx);
             }
 
             if (queries.hasOwnProperty('category')) {
-                var categoryRegEx = new RegExp(queries.category,'i');
+                var categoryRegEx = new RegExp(queries.category, 'i');
                 query = query.where('category', categoryRegEx);
             }
 
             if (queries.hasOwnProperty('tags')) {
-                var tagsRegEx = new RegExp(queries.tags,'i');
-                query = query.where('tags',tagsRegEx);
+                var tagsRegEx = new RegExp(queries.tags, 'i');
+                query = query.where('tags', tagsRegEx);
             }
 
             if (queries.hasOwnProperty('price')) {
@@ -90,9 +96,8 @@ module.exports = {
 
                     socket.sendMessage(photo.authorId, 'Your photo "' + photo.title + '" has been deleted :( ');
                 });
-
-
                 res.send({message: 'Photo deleted successfully!'});
+
             })
     },
     updatePhoto: function (req, res, next) {

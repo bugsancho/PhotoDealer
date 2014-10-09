@@ -1,9 +1,10 @@
 var Photo = require('mongoose').model('Photo');
 var User = require('mongoose').model('User');
+var Transaction = require('mongoose').model('Transaction');
 
 module.exports = {
     downloadPhoto: function (req, res, next) {
-        if(!req.user){
+        if (!req.user) {
             return res.status(401).send('Unauthorized');
         }
 
@@ -53,7 +54,7 @@ module.exports = {
 
                                 authorData = authorData.toObject();
                                 delete authorData._id;
-                                User.update({_id: authorId}, authorData, function (err) {
+                                User.update({_id: authorId}, authorData, function (err, useeeeer) {
                                     if (err) {
                                         console.log('Author update error: ' + err);
                                         return res.status(500).send('Author update error');
@@ -63,11 +64,25 @@ module.exports = {
 
                                     photoInDb = photo.toObject();
                                     delete photoInDb._id;
-                                    Photo.update({_id: photoId}, photoInDb, function (err) {
+                                    Photo.update({_id: photoId}, photoInDb, function (err, number) {
                                         if (err) {
                                             console.log('Photo update error: ' + err);
                                             return res.status(500).send('Photo update error');
                                         }
+                                        console.log(photo);
+                                        Transaction.create({
+                                            fromUserId: userId,
+                                            fromUserNames: userData.firstName + ' ' + userData.lastName,
+                                            toUserId: photo.authorId,
+                                            toUserNames: photo.authorName,
+                                            photoId: photo._id,
+                                            photoName: photo.title,
+                                            date: Date(),
+                                            amount: photo.price
+
+                                        }, function (err, blaaa) {
+                                            console.log(blaaa)
+                                        });
 
                                         return res = sendFile(res, photo);
                                     });
@@ -149,6 +164,7 @@ module.exports = {
                             return;
                         }
 
+
                         //console.log('!' + newPhoto._id);
                         res.redirect('/#/photos/' + photoId);
                     });
@@ -184,7 +200,7 @@ function sendFile(res, photo) {
 function isBought(array, pictureId) {
     for (var i = 0, len = array.length; i < len; i += 1) {
         var currentPicture = array[i];
-        if(currentPicture == pictureId){
+        if (currentPicture == pictureId) {
             return true;
         }
     }

@@ -1,14 +1,15 @@
 var mongoose = require('mongoose'),
     user = require('../models/User'),
     photo = require('../models/Photo'),
-    category = require('../models/Category');
+    category = require('../models/Category'),
+    transaction = require('../models/Transaction');
 
-module.exports = function(config) {
+module.exports = function (config) {
     mongoose.connect(config.db);
 
     var db = mongoose.connection;
 
-    db.once('open', function(err) {
+    db.once('open', function (err) {
         if (err) {
             console.log('Database could not be opened: ' + err);
             return;
@@ -17,7 +18,7 @@ module.exports = function(config) {
         console.log('Database up and running...')
     });
 
-    db.on('error', function(err){
+    db.on('error', function (err) {
         console.dir(err);
         console.log('Database error: ' + err);
     });

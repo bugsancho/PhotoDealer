@@ -1,8 +1,11 @@
-var usersController = require(__dirname + '/usersController');
-var photosController = require(__dirname + '/PhotosController');
-var filesController = require(__dirname + '/FilesController');
+var usersController = require(__dirname + '/usersController'),
+    photosController = require(__dirname + '/PhotosController'),
+    filesController = require(__dirname + '/FilesController'),
+    categoriesController = require(__dirname + '/CategoriesController');
+
 module.exports = {
     users: usersController,
     photos : photosController,
+    categories : categoriesController,
     files: filesController
 };

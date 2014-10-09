@@ -22,18 +22,17 @@ block main-content
                         a(href="#/photo/upload")
                             | Upload
 
-
                     li.dropdown(ng-show="identity.currentUser.isAdmin()")
                         a.dropdown-toggle(href="", data-toggle="dropdown")
                             | Admin
                             span.caret
                         ul.dropdown-menu
                             li
-                                a(href="#/admin/users") Users
+                                a(href="#/admin/users")
+                                    | Users
                             li
-                                a(href="#/profile") Profile
-                            li
-                                a(href="#/photos/approve") Authorize Photos
+                                a(href="#/photos/approve")
+                                    | Authorize Photos
 
                 div(ng-include="'partials/account/login'")
 

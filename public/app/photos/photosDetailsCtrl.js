@@ -43,12 +43,14 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
     };
 
     function deletePhoto(photoId) {
-        $('#deletePhoto').modal('hide');
         PhotosResource.PhotosResource.remove({id: photoId})
             .$promise.then(function (data) {
                 notifier.success(data.message);
                 $location.path('/');
+                $('.modal-backdrop.fade.in').remove();
+
             });
+
     }
 
     function isDownloadAllowed() {

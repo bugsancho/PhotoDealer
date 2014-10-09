@@ -17,22 +17,26 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
                 message = 'Download successfully';
             }
             else {
-                // TODO: Add logic if you have enough money
-                var haveMoney = true;
-                if (haveMoney) {
-                    message = 'You bought new picture for: $' + ($scope.photo.price || 0);
+
+                var credits = $scope.currentUser.credits;
+                var picturePrice = $scope.photo.price;
+                if (credits >= picturePrice) {
+                    message = 'You bought new picture for: $' + (picturePrice || 0);
                 }
             }
 
-            PhotosResource.downloadFile($scope.photo._id)
-                .then(function (data) {
-                    identity.updateUser();
-                    isDownloadAllowed();
-                    notifier.success(message);
-                },
-                function (response) {
-                    notifier.error(response);
-                });
+            if(message){
+                PhotosResource.downloadFile($scope.photo._id)
+                    .then(function (data) {
+                        notifier.success(message);
+                    },
+                    function (response) {
+                        notifier.error(response);
+                    });
+            }
+            else{
+                notifier.error('You do not have enough money!');
+            }
         }
     };
 

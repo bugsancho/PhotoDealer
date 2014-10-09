@@ -13,11 +13,15 @@ module.exports = {
             }
 
             if (collection.length === 0) {
-                Category.create({title: 'Cats'});
-                Category.create({title: 'Dogs'});
-                Category.create({title: 'Unicorns'});
-                Category.create({title: 'Spiders'});
-                Category.create({title: 'Snakes'});
+                Category.create({title: 'Landscape'});
+                Category.create({title: 'Birds'});
+                Category.create({title: 'Mammals'});
+                Category.create({title: 'Flowers'});
+                Category.create({title: 'Insects'});
+                Category.create({title: 'Portrait'});
+                Category.create({title: 'Architecture'});
+                Category.create({title: 'Sky'});
+                Category.create({title: 'Other'});
 
                 console.log('Adding categories to database!');
             }

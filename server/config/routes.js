@@ -15,6 +15,8 @@ module.exports = function (app) {
     app.post('/api/photos', auth.isAuthenticated, controllers.files.uploadPhoto);
     app.get('/api/photos/:id/download', controllers.files.downloadPhoto);
 
+    app.get('/api/categories', controllers.categories.getAllCategories)
+
     app.get('/partials/:partialArea/:partialName', function (req, res) {
         res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
     });

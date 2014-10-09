@@ -1,5 +1,7 @@
-app.controller('PhotosCtrl', function ($scope, PhotosResource, $location, identity) {
+app.controller('PhotosCtrl', function ($scope, PhotosResource, CategoriesResource, $location, identity) {
     $scope.photos = PhotosResource.PhotosResource.query();
+    $scope.categories = CategoriesResource.CategoriesResource.query();
+
     $scope.redirectToDetails = redirectToDetails;
     $scope.page = 1;
     $scope.identity = identity;
@@ -58,7 +60,7 @@ app.controller('PhotosCtrl', function ($scope, PhotosResource, $location, identi
         }
 
         getPhotos(query);
-    };
+    }
 
     $scope.decreasePage = function () {
         $scope.page--;

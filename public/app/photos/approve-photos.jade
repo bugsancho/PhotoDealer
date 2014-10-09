@@ -22,7 +22,7 @@
                         | Action
             tr(ng-repeat="photo in photos")
                 td
-                    img.mrg-btm(ng-src="{{photo.pictureUrl}}", width="200px", height="200px",ng-click="redirectToDetails(photo._id)")
+                    img.mrg-btm(ng-src="{{photo.pictureUrl}}", width="100%", ng-click="redirectToDetails(photo._id)")
                 td
                     | {{photo.authorName}}
                 td

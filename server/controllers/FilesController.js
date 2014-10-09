@@ -1,6 +1,7 @@
 var Photo = require('mongoose').model('Photo');
 var User = require('mongoose').model('User');
 var Transaction = require('mongoose').model('Transaction');
+var socket = require('../utilities/socket');
 
 module.exports = {
     downloadPhoto: function (req, res, next) {
@@ -60,6 +61,7 @@ module.exports = {
                                         return res.status(500).send('Author update error');
                                     }
 
+
                                     photo.downloadsCount++;
 
                                     photoInDb = photo.toObject();
@@ -69,7 +71,6 @@ module.exports = {
                                             console.log('Photo update error: ' + err);
                                             return res.status(500).send('Photo update error');
                                         }
-                                        console.log(photo);
                                         Transaction.create({
                                             fromUserId: userId,
                                             fromUserNames: userData.firstName + ' ' + userData.lastName,
@@ -80,10 +81,9 @@ module.exports = {
                                             date: Date(),
                                             amount: photo.price
 
-                                        }, function (err, blaaa) {
-                                            console.log(blaaa)
                                         });
-
+                                        
+                                        socket.sendMessage(authorId, 'Your photo "' + photo.title + '" has been purchased! $' + photo.price + ' have been added to your account!');
                                         return res = sendFile(res, photo);
                                     });
                                 });

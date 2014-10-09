@@ -1,5 +1,5 @@
 var io = require('socket.io').listen(3434);
-var socket = io;;
+var socket = io;
 
 module.exports = {
 //    config: function (app) {

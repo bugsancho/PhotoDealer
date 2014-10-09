@@ -25,11 +25,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/partials/photos/photos',
             controller: 'PhotosCtrl'
         })
-        .when('/photos/approve', {
-            templateUrl: '/partials/photos/approve-photos',
-            controller: 'ApprovePhotosCtrl',
-            resolve: routeUserChecks.adminRole
-        })
+
         .when('/photos/:id', {
             templateUrl: '/partials/photos/photo-details',
             controller: 'PhotosDetailsCtrl'
@@ -48,6 +44,11 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/partials/account/profile',
             controller: 'ProfileCtrl',
             resolve: routeUserChecks.authenticated
+        })
+        .when('/admin/approve', {
+            templateUrl: '/partials/photos/approve-photos',
+            controller: 'ApprovePhotosCtrl',
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/users', {
             templateUrl: '/partials/admin/users-list',

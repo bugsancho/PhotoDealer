@@ -33,7 +33,9 @@
                 input.form-control(type="text", placeholder='Author', ng-model='filter.authorName', ng-change='filterBy()')
             .col-md-2
                 div Category
-                input.form-control(type="text", placeholder='Category', ng-model='filter.category', ng-change='filterBy()')
+                select.form-control(ng-model='filter.category' ng-change='filterBy()')
+                    option(value="")
+                    option(value="{{category.title}}" ng-repeat="category in categories") {{category.title}}
             .col-md-2
                 div Tag
                 input.form-control(type="text", placeholder='Tag', ng-model='filter.tags', ng-change='filterBy()')

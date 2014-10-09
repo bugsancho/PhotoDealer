@@ -22,7 +22,43 @@
                             | Downloads: {{ photo.downloadsCount || 0 }}
                         li.list-group-item
                             | Price: {{ photo.price || 0 | currency:'$' }}
-                        button.btn.btn-primary(ng-click="download()", ng-show="identity.isAuthenticated()")
+                        button.btn.btn-primary(ng-show="identity.isAuthenticated()", data-target="#buyPhoto", data-toggle="modal")
                             | {{buttonText()}}
-                        button.btn.btn-warning(ng-click="deletePhoto(photo._id)", ng-show="identity.isAuthorizedForRole('admin')")
+                        #buyPhoto.modal.fade(role='dialog', aria-labelledby='buyLabel', aria-hidden='true')
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        button.close(type='button', data-dismiss='modal')
+                                            span(aria-hidden='true')
+                                                | ×
+                                            span.sr-only
+                                                | Close
+                                        h4.modal-title
+                                            | Confirm
+                                    #buyLabel.modal-body
+                                        | Are you sure you want to {{buttonText()}} this photo.
+                                    .modal-footer
+                                        button.btn.btn-default(type='button', data-dismiss='modal')
+                                            | Close
+                                        button.btn.btn-default(type="button", ng-click="download()", ng-click="alert(5)")
+                                            | {{buttonText()}}
+                        button.btn.btn-warning(ng-show="identity.isAuthorizedForRole('admin')", data-target="#deletePhoto", data-toggle="modal")
                             | Delete
+                        #deletePhoto.modal.fade(role='dialog', aria-labelledby='deleteLabel', aria-hidden='true')
+                            .modal-dialog
+                                .modal-content
+                                    .modal-header
+                                        button.close(type='button', data-dismiss='modal')
+                                            span(aria-hidden='true')
+                                                | ×
+                                            span.sr-only
+                                                | Close
+                                        h4.modal-title
+                                            | Confirm
+                                    #deleteLabel.modal-body
+                                        | Are you sure you want to DELETE this photo.
+                                    .modal-footer
+                                        button.btn.btn-default(type='button', data-dismiss='modal')
+                                            | Close
+                                        button.btn.btn-default(type="button", ng-click="deletePhoto(photo._id)")
+                                            | Delete

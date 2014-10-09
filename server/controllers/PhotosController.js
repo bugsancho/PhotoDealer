@@ -19,19 +19,23 @@ module.exports = {
             .where('isApproved', onlyApprovedPhotos);
         if (queries) {
             if (queries.hasOwnProperty('title')) {
-                query = query.where('title', queries.title);
+                var titleRegEx = new RegExp(queries.title,'i');
+                query = query.where('title', titleRegEx);
             }
 
             if (queries.hasOwnProperty('authorName')) {
-                query = query.where('authorName', queries.authorName);
+                var authorRegEx = new RegExp(queries.authorName,'i');
+                query = query.where('authorName', authorRegEx);
             }
 
             if (queries.hasOwnProperty('category')) {
-                query = query.where('category', queries.category);
+                var categoryRegEx = new RegExp(queries.category,'i');
+                query = query.where('category', categoryRegEx);
             }
 
             if (queries.hasOwnProperty('tags')) {
-                query = query.where('tags', queries.tags);
+                var tagsRegEx = new RegExp(queries.tags,'i');
+                query = query.where('tags',tagsRegEx);
             }
 
             if (queries.hasOwnProperty('price')) {
@@ -73,7 +77,7 @@ module.exports = {
     },
     deletePhoto: function (req, res, next) {
 
-       // console.log(req.params.id);
+        // console.log(req.params.id);
         Photo.findOne({_id: req.params.id})
             .exec(function (err, photo) {
                 if (err) {

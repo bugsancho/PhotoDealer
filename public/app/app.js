@@ -1,16 +1,16 @@
 var app = angular.module('app', ['ngResource', 'ngRoute', 'kendo.directives']).value('toastr', toastr);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
 
     var routeUserChecks = {
         adminRole: {
-            authenticate: function(auth) {
+            authenticate: function (auth) {
                 return auth.isAuthorizedForRole('admin');
             }
         },
         authenticated: {
-            authenticate: function(auth) {
+            authenticate: function (auth) {
                 return auth.isAuthenticated();
             }
         }
@@ -54,13 +54,18 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/admin/transactions', {
+            templateUrl: '/partials/transactions/transactions-list',
+            controller: 'TransactionsCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         .when('/unauthorized', {
             templateUrl: '/partials/account/unauthorized'
         })
 });
 
-app.run(function($rootScope, $location) {
-    $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
+app.run(function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
         if (rejection === 'not authorized') {
             $location.path('/unauthorized');
         }

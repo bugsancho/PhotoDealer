@@ -4,10 +4,22 @@ app.controller('TransactionsCtrl', function ($scope, PhotosResource, $location, 
             transport: {
                 read: "/api/transactions"
             },
-            pageSize: 3
+            pageSize: 5
+        },
+        schema: {
+            model: {
+                fields: {
+                    fromUserNames: { type: "string" },
+                    toUserNames: { type: "string" },
+                    photoName: { type: "string" },
+                    date: { type: "date" },
+                    amount: { type: "number" }
+                }
+            }
         },
         sortable: true,
         pageable: true,
+        filterable:true,
         columns: [{
             field: "fromUserNames",
             title: "From User"
@@ -15,11 +27,16 @@ app.controller('TransactionsCtrl', function ($scope, PhotosResource, $location, 
             field: "toUserNames",
             title: "To User"
         },{
-            field: "photoName"
+            field: "photoName",
+            title: "Photo"
         },{
-            field: "date"
+            field: "date",
+            title: "Time of Purchase",
+            type: 'date',
+            template: '#= kendo.toString(date, "G") #'
         },{
-            field: "amount"
+            field: "amount",
+            title: "Sum of Transaction"
         }]
     };
 

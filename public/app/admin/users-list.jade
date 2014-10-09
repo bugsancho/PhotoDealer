@@ -3,15 +3,17 @@
         fieldset
             legend
                 | Edit Users
-            table.table.table-striped.table-hover.table.table-bordered.text-center
+            table.table.table-striped.table-hover.table-bordered.text-center
                 thead
                     tr.success
-                        th.text-center.col-md-2
+                        th.text-center.col-md-1
                             | Username
-                        th.text-center.col-md-2
-                            | First Name
-                        th.text-center.col-md-2
-                            | Last Name
+                        th.text-center.col-md-1
+                            | Full Name
+                        th.text-center.col-md-1
+                            | Roles
+                        th.text-center.col-md-1
+                            | Cahnge role
                         th.text-center.col-md-1
                             | Balance
                         th.text-center.col-md-2
@@ -21,9 +23,13 @@
                         td
                             | {{ user.username }}
                         td
-                            | {{ user.firstName }}
+                            | {{ user.firstName + ' ' + user.lastName}}
                         td
-                            | {{ user.lastName }}
+                            | {{ user.roles.join(', ') }}
+                        td
+                            select.form-control(ng-model="user.roles[0]")
+                                option(value="{{ role }}", ng-repeat="role in roles", ng-selected="user.roles[0] == role")
+                                    | {{ role }}
                         td
                             | {{ user.credits || 0 | currency:'$' }}
                         td

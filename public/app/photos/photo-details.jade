@@ -40,7 +40,7 @@
                                     .modal-footer
                                         button.btn.btn-default(type='button', data-dismiss='modal')
                                             | Close
-                                        button.btn.btn-default(type="button", ng-click="download()", ng-click="alert(5)")
+                                        button#download-btn.btn.btn-default(type="button", ng-click="download()")
                                             | {{buttonText()}}
                         button.btn.btn-warning(ng-show="identity.isAuthorizedForRole('admin')", data-target="#deletePhoto", data-toggle="modal")
                             | Delete
@@ -60,5 +60,5 @@
                                     .modal-footer
                                         button.btn.btn-default(type='button', data-dismiss='modal')
                                             | Close
-                                        button.btn.btn-default(type="button", ng-click="deletePhoto(photo._id)")
+                                        button#delete-btn.btn.btn-default(type="button", ng-click="deletePhoto(photo._id)")
                                             | Delete

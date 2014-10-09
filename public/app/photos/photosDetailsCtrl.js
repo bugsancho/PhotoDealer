@@ -10,7 +10,7 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
     $scope.deletePhoto = deletePhoto;
     $scope.download = function () {
         if ($scope.photo && $scope.currentUser) {
-
+            $('#buyPhoto').modal('hide');
             var message;
             if (isDownloadAllowed()) {
                 message = 'Download successfully';
@@ -43,10 +43,12 @@ app.controller('PhotosDetailsCtrl', function ($scope, $routeParams, $http, Photo
     };
 
     function deletePhoto(photoId) {
-        PhotosResource.PhotosResource.remove({id: photoId}).$promise.then(function (data) {
-            notifier.success(data.message);
-            $location.path('/');
-        })
+        $('#deletePhoto').modal('hide');
+        PhotosResource.PhotosResource.remove({id: photoId})
+            .$promise.then(function (data) {
+                notifier.success(data.message);
+                $location.path('/');
+            });
     }
 
     function isDownloadAllowed() {

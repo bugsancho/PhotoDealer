@@ -4,28 +4,39 @@ var User = require('mongoose').model('User');
 module.exports = {
     createUser: function (req, res, next) {
         var newUserData = req.body;
-        newUserData.salt = encryption.generateSalt();
-        newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
-        newUserData.credits = 0;
-        newUserData.roles = ['standard'];
-        User.create(newUserData, function (err, user) {
-            debugger;
-            if (err) {
-                console.log('Failed to register new user: ' + err);
-                res.status(400);
-                return res.send({reason: err.toString()});
-
-            }
-
-            req.logIn(user, function (err) {
+        if(newUserData.password.length < 6){
+            res.status(400);
+            res.send({reason: 'Password must be at least 6 symbols long!'});
+        }
+        else {
+            var userToSave = {};
+            userToSave.salt = encryption.generateSalt();
+            userToSave.hashPass = encryption.generateHashedPassword(userToSave.salt, newUserData.password);
+            userToSave.credits = 0;
+            userToSave.roles = ['standard'];
+            userToSave.username = newUserData.username;
+            userToSave.firstName = newUserData.firstName;
+            userToSave.lastName = newUserData.lastName;
+            User.create(userToSave, function (err, user) {
+                debugger;
                 if (err) {
+                    console.log('Failed to register new user: ' + err);
                     res.status(400);
                     return res.send({reason: err.toString()});
+
                 }
 
-                res.send(user);
-            })
-        });
+                req.logIn(user, function (err) {
+                    if (err) {
+                        res.status(400);
+                        return res.send({reason: err.toString()});
+                    }
+                    delete  user.salt;
+                    delete user.hashPass;
+                    res.send(user);
+                })
+            });
+        }
     },
     updateUser: function (req, res, next) {
         if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
@@ -39,12 +50,14 @@ module.exports = {
             })
         }
         else {
+            res.status(400);
             res.send({reason: 'You do not have permissions!'})
         }
     },
     changePassword: function (req, res, next) {
         if (req.user._id == req.body.id) {
             // check if given password is valid
+
             var oldHashedPassword = encryption.generateHashedPassword(req.user.salt, req.body.password);
 
             if (oldHashedPassword == req.user.hashPass) {
@@ -58,6 +71,7 @@ module.exports = {
                     User.update({_id: updatedUserData._id}, {salt: updatedUserData.salt, hashPass: updatedUserData.hashPass}, function (err) {
                         if (err) {
                             console.log(err);
+                            res.status(400);
                             res.send({message: 'Password could not be changed!'});
                         }
                         else {
@@ -66,15 +80,18 @@ module.exports = {
                     })
                 }
                 else {
-                    res.send({reason: 'Invalid new password. Password and confirm must match and have be at least 6 symbols.'});
+                    res.status(400);
+                    res.send({reason: 'Invalid new password. Password and confirm must match and be at least 6 symbols long.'});
                 }
             }
             else {
+                res.status(400);
                 res.send({reason: 'Old password is invalid!'});
             }
         }
         else {
-            res.send({reason: 'You do not have permissions!'})
+            res.status(403);
+            res.send({reason: 'You do not have permissions to do that!'})
         }
     },
     getAllUsers: function (req, res) {

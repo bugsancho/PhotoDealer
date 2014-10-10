@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     encryption = require('../utilities/encryption');
 
 var userSchema = mongoose.Schema({
-    username: { type: String, require: '{PATH} is required', unique: true },
+    username: { type: String, require: '{PATH} is required', unique: true, validate: [validator, 'Username must be at least 6 symbols long'] },
     firstName: { type: String, require: '{PATH} is required' },
     lastName: { type: String, require: '{PATH} is required' },
     boughtPhotosIds: [
@@ -12,11 +12,15 @@ var userSchema = mongoose.Schema({
     ownPhotosIds: [
         {type: mongoose.Schema.ObjectId, ref: 'Photo'}
     ],
-    credits: Number,
-    salt: String,
-    hashPass: String,
+    credits: {type: Number, min: 0, require: '{PATH} is required'},
+    salt: { type: String, require: '{PATH} is required' },
+    hashPass: { type: String, require: '{PATH} is required' },
     roles: [String]
 });
+
+function validator (v) {
+    return v.length > 5;
+};
 
 userSchema.method({
     authenticate: function (password) {
@@ -29,7 +33,7 @@ userSchema.method({
         }
     },
     isTrustedUploader: function () {
-        if(this.roles.indexOf('trusted') != -1 || this.roles.indexOf('admin') != -1 ){
+        if (this.roles.indexOf('trusted') != -1 || this.roles.indexOf('admin') != -1) {
             return true;
         }
         return false;

@@ -14,11 +14,11 @@
                 .form-group
                     label.col-md-2.control-label(for="username") Username
                     .col-md-10
-                        input.form-control(type="text", placeholder="Username", ng-model="user.username", required)
+                        input.form-control(type="text", placeholder="Username", ng-model="user.username",ng-minlength="6", required)
                 .form-group
                     label.col-md-2.control-label(for="password") Password
                     .col-md-10
-                        input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                        input.form-control(type="password", placeholder="Password", ng-model="user.password",ng-minlength="6", required)
                 .pull-right
                     button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
                     a.btn.btn-primary(href="#/") Cancel

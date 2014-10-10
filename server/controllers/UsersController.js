@@ -54,8 +54,15 @@ module.exports = {
                     var salt = encryption.generateSalt();
                     updatedUserData.salt = salt;
                     updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, passwordModel.newPassword);
-                    User.update({_id: updatedUserData._id}, updatedUserData, function () {
-                        res.send({message: 'Password changed successfully!'});
+
+                    User.update({_id: updatedUserData._id}, {salt: updatedUserData.salt, hashPass: updatedUserData.hashPass}, function (err) {
+                        if (err) {
+                            console.log(err);
+                            res.send({message: 'Password could not be changed!'});
+                        }
+                        else {
+                            res.send({message: 'Password changed successfully!'});
+                        }
                     })
                 }
                 else {

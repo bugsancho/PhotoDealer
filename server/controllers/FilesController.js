@@ -82,7 +82,7 @@ module.exports = {
                                             amount: photo.price
 
                                         });
-                                        
+
                                         socket.sendMessage(authorId, 'Your photo "' + photo.title + '" has been purchased! $' + photo.price + ' have been added to your account!');
                                         return res = sendFile(res, photo);
                                     });

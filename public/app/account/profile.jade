@@ -1,20 +1,41 @@
 .container
-    .well
+    .well.col-md-6.col-md-offset-3
         form.form-horizontal(name="profileForm")
             fieldset
-                legend Create New User
-                .form-group
-                    label.col-md-2.control-label(for="first-name") First Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="First Name", ng-model="user.firstName", required)
-                .form-group
-                    label.col-md-2.control-label(for="last-name") Last Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
-                .form-group
-                    label.col-md-2.control-label(for="password") Password
-                    .col-md-10
-                        input.form-control(type="password", placeholder="Password", ng-model="user.password")
-                .pull-right
-                    button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
-                    a.btn.btn-primary(href="#/") Cancel
+                legend User Details
+                .container
+                    ul.list-group.col-md-5
+                        li.list-group-item
+                            | Username: {{ user.username }}
+                        li.list-group-item
+                            | Money: {{ user.credits | currency:'$' }}
+                        li.list-group-item
+                            | Uploaded photos: {{ user.ownPhotosIds.length }}
+                        li.list-group-item
+                            | Bought photos: {{ user.boughtPhotosIds.length }}
+                        li.list-group-item
+                            | User role(s): {{ user.roles.join(', ') }}
+                .panel.panel-default
+                    .panel-heading
+                        | Change password
+                    .panel-body
+                        .form-group.row
+                            label.col-md-3.col-md-offset-2.control-label(for="first-name")
+                                | Old Password
+                            .col-md-4
+                                input.form-control(type="password", placeholder="old password", ng-model="newPasswordModel.password", required)
+                        .form-group.row
+                            label.col-md-3.col-md-offset-2.control-label(for="last-name")
+                                | New Password
+                            .col-md-4
+                                input.form-control(type="password", placeholder="new password", ng-model="newPasswordModel.newPassword", required)
+                        .form-group.row
+                            label.col-md-3.col-md-offset-2.control-label(for="password")
+                                | Confirm Password
+                            .col-md-4
+                                input.form-control(type="password", placeholder="confirm password", ng-model="newPasswordModel.confirmPassword", required)
+                        .pull-right.row
+                            button.btn.btn-primary(ng-click="changePassword(newPasswordModel)", ng-disabled="profileForm.$invalid")
+                                | Update
+                            a.btn.btn-primary(href="#/")
+                                | Cancel

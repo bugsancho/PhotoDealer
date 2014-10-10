@@ -42,6 +42,34 @@ module.exports = {
             res.send({reason: 'You do not have permissions!'})
         }
     },
+    changePassword: function (req, res, next) {
+        if (req.user._id == req.body.id) {
+            // check if given password is valid
+            var oldHashedPassword = encryption.generateHashedPassword(req.user.salt, req.body.password);
+
+            if (oldHashedPassword == req.user.hashPass) {
+                var updatedUserData = req.user;
+                var passwordModel = req.body;
+                if (passwordModel.newPassword == passwordModel.confirmPassword && passwordModel.newPassword.length > 5) {
+                    var salt = encryption.generateSalt();
+                    updatedUserData.salt = salt;
+                    updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, passwordModel.newPassword);
+                    User.update({_id: updatedUserData._id}, updatedUserData, function () {
+                        res.send({message: 'Password changed successfully!'});
+                    })
+                }
+                else {
+                    res.send({reason: 'Invalid new password. Password and confirm must match and have be at least 6 symbols.'});
+                }
+            }
+            else {
+                res.send({reason: 'Old password is invalid!'});
+            }
+        }
+        else {
+            res.send({reason: 'You do not have permissions!'})
+        }
+    },
     getAllUsers: function (req, res) {
         User.find({}).exec(function (err, collection) {
             if (err) {
@@ -55,11 +83,11 @@ module.exports = {
         User.findOne({_id: req.params.id})
             .select('-salt -hashPass')
             .exec(function (err, user) {
-            if(err){
-                console.log('Failed to find the user: ' + err);
-            }
+                if (err) {
+                    console.log('Failed to find the user: ' + err);
+                }
 
-            res.send(user);
-        });
+                res.send(user);
+            });
     }
 }

@@ -3,16 +3,17 @@ var auth = require('./auth'),
 
 module.exports = function (app) {
     app.get('/api/users', auth.isInRole('admin'), controllers.users.getAllUsers);
-    app.get('/api/users/:id', controllers.users.getUserById);
     app.post('/api/users', controllers.users.createUser);
     app.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
+    app.get('/api/users/:id', controllers.users.getUserById);
+    app.put('/api/users/:id', auth.isAuthenticated, controllers.users.changePassword);
 
     app.get('/api/photos', controllers.photos.getAllPhotos);
+    app.post('/api/photos', auth.isAuthenticated, controllers.files.uploadPhoto);
     app.get('/api/photos/:id', controllers.photos.getPhotoById);
     app.put('/api/photos/:id', auth.isInRole('admin'), controllers.photos.updatePhoto);
     app.delete('/api/photos/:id', auth.isInRole('admin'), controllers.photos.deletePhoto);
     app.get('/api/photos/:id/file', controllers.photos.getPhotoFile);
-    app.post('/api/photos', auth.isAuthenticated, controllers.files.uploadPhoto);
     app.get('/api/photos/:id/download', controllers.files.downloadPhoto);
 
     app.get('/api/categories', controllers.categories.getAllCategories);
